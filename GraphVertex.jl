@@ -1,3 +1,5 @@
+using Base.Test
+
 type Wierzcholek
     id::Int
     value::ASCIIString
@@ -14,7 +16,7 @@ type Krawedz
     Krawedz(v,x,y,z) = new(v,x,y,z)
 end
 
-function iteracja(vertex::Wierzcholek)
+function iteracja(vertex::Wierzcholek{})
   for i=1:1:length(vertex)
     println(vertex[i].id);
   end
@@ -22,15 +24,16 @@ function iteracja(vertex::Wierzcholek)
   return true;
 end
 
-function iteracja_krawedzi(edge_list::Krawedz{})
+function iteracja_krawedzi(edge_list::Array{Krawedz,2})
 
-    println(edge_list.id);
-
+    for i=1:1:length(edge_list)
+      println(edge_list);
+    end
 
   return true;
 end
 
-# @test iteracja([1,2]) == true
+#@test iteracja(new Vector{}) == true
 
-println("Test zakończony sukcesem");
-# @test iteracja_krawedzi([Krawedz(1,Wierzcholek(1,"a"),Wierzcholek(2,"b"),1), Krawedz(1,Wierzcholek(1,"a"),Wierzcholek(2,"b"),1)]) == true
+println("Test zakończony sukcesem2");
+ @test iteracja_krawedzi([Krawedz(1,Wierzcholek(1,"a"),Wierzcholek(2,"b"),1) Krawedz(1,Wierzcholek(1,"a"),Wierzcholek(2,"b"),1)]) == true
