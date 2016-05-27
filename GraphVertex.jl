@@ -26,8 +26,19 @@ end
 
 function iteracja_krawedzi2(edge_list::Array{Krawedz})
 
+    i = 0;
     for edge in edge_list
-      println(edge.id);
+      # println(edge.id);
+      # println("index =$(i)");
+
+        j = 0;
+          for edge in edge_list
+
+          println("i = $(i), j = $(j)");
+          j += 1;
+          end
+          
+      i += 1;
     end
 
   return true;
@@ -35,7 +46,7 @@ end
 
 #@test iteracja(new Vector{}) == true
 edge_list = [Krawedz(1,Wierzcholek(1,"a"),Wierzcholek(2,"b"),1)
-Krawedz(2,Wierzcholek(1,"a"),Wierzcholek(2,"b"),1) 
+Krawedz(2,Wierzcholek(1,"a"),Wierzcholek(2,"b"),1)
 Krawedz(3,Wierzcholek(1,"a"),Wierzcholek(2,"b"),1)];
  @test iteracja_krawedzi2(edge_list) == true
 
