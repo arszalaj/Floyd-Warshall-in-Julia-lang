@@ -24,7 +24,7 @@ function iteracja(vertex::Wierzcholek{})
   return true;
 end
 
-function iteracja_krawedzi2(edge_list::Array{Krawedz})
+function iteracja_krawedzi3(edge_list::Array{Krawedz})(dists::AbstractMatrix{W})
 
     i = 0;
     for edge in edge_list
@@ -37,7 +37,7 @@ function iteracja_krawedzi2(edge_list::Array{Krawedz})
           println("i = $(i), j = $(j)");
           j += 1;
           end
-          
+
       i += 1;
     end
 
