@@ -2,19 +2,16 @@
 using Base.Test
 
 type Wierzcholek
-    id::Int
     value::ASCIIString
-
-    Wierzcholek(x,y) = new(x,y)
+    Wierzcholek(x) = new(x)
 end
 
 type Krawedz
-    id::Int
-    v1::Wierzcholek
-    v2::Wierzcholek
+    v1::ASCIIString
+    v2::ASCIIString
     weight::Int
 
-    Krawedz(v,x,y,z) = new(v,x,y,z)
+    Krawedz(x,y,z) = new(x,y,z)
 end
 
 function iteracja(vertex::Wierzcholek{})
@@ -27,56 +24,51 @@ end
 
 function iteracja_krawedzi2(edge_list::Array{Krawedz})
 
-  n::Int = length(edge_list);
+  n = length(edge_list);
   dist = eye(n);
   prev = eye(n);
-    u = 1;
-    for edge in edge_list
+  vertex_list::Array{ASCIIString}
 
-      v = 1;
-      for edge in edge_list
+  for i in eachindex(edge_list)
+    push!(vertex_list, edge_list.v1);
+  end
+
+    for u in eachindex(vertex_list)
+      for v in eachindex(vertex_list)
         dist[u, v] = Inf;
         prev[u, v] = -1;
-        v += 1;
       end
-
       dist[u, u] = 0;
-      u += 1;
     end
 
-
-    t = 1;
-    for edge in edge_list
-      u = 1;
-      for edge in edge_list
-          v = 1;
-          for edge in edge_list
+    for t in eachindex(vertex_list)
+      for u in eachindex(vertex_list)
+        for v in eachindex(vertex_list)
             newLength = dist[u, t] + dist[t, v];
-            println("if");
+            # println("if");
             if newLength < dist[u, v]
               dist[u, v] = newLength;
               pred[u,v] = pred[t, v];
-
             end
-              v += 1;
           end
-
           dist[u, u] = 0;
-          u += 1;
       end
-      t += 1;
     end
 
 println("dist =\n $(dist)");
 println("prev =\n $(prev)");
+println("vertex_list =\n $(vertex_list)");
 
   return true;
 end
 
+
 #@test iteracja(new Vector{}) == true
-edge_list = [Krawedz(1,Wierzcholek(1,"a"),Wierzcholek(2,"b"),1)
-Krawedz(2,Wierzcholek(1,"a"),Wierzcholek(2,"b"),1)
-Krawedz(3,Wierzcholek(1,"a"),Wierzcholek(2,"b"),1)];
- @test iteracja_krawedzi2(edge_list) == true
+vertex_list = ["a" "b" "c"];
+edge_list = [
+Krawedz("a","b",1)
+Krawedz("b","c",2)
+Krawedz("a","c",4)];
+ @test iteracja_krawedzi2(vertex_list, edge_list) == true
 
  println("Test zakończony sukcesem4");
