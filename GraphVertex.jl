@@ -29,20 +29,46 @@ function iteracja_krawedzi2(edge_list::Array{Krawedz})
 
   n::Int = length(edge_list);
   dist = eye(n);
-    i = 1;
+  prev = eye(n);
+    u = 1;
     for edge in edge_list
-      # println(edge.id);
-      # println("index =$(i)");
 
-        j = 1;
+      v = 1;
+      for edge in edge_list
+        dist[u, v] = Inf;
+        prev[u, v] = -1;
+        v += 1;
+      end
+
+      dist[u, u] = 0;
+      u += 1;
+    end
+
+
+    t = 1;
+    for edge in edge_list
+      u = 1;
+      for edge in edge_list
+          v = 1;
           for edge in edge_list
-            dist[i, j] = 1;
-          # println("i = $(i), j = $(j)");
-          j += 1;
+            newLength = dist[u, t] + dist[t, v];
+            println("if");
+            if newLength < dist[u, v]
+              dist[u, v] = newLength;
+              pred[u,v] = pred[t, v];
+
+            end
+              v += 1;
           end
 
-      i += 1;
+          dist[u, u] = 0;
+          u += 1;
+      end
+      t += 1;
     end
+
+println("dist =\n $(dist)");
+println("prev =\n $(prev)");
 
   return true;
 end
