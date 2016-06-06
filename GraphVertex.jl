@@ -1,3 +1,4 @@
+#!/usr/bin/julia
 using Base.Test
 
 type Wierzcholek
@@ -24,7 +25,7 @@ function iteracja(vertex::Wierzcholek{})
   return true;
 end
 
-function iteracja_krawedzi3(edge_list::Array{Krawedz})(dists::AbstractMatrix{W})
+function iteracja_krawedzi2(edge_list::Array{Krawedz})
 
     i = 0;
     for edge in edge_list

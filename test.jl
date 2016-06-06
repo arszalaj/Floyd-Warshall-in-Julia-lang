@@ -1,3 +1,4 @@
+#!/usr/bin/julia
 using Base.Test
 
 # @test GraphVertex(1,"a").id == 1
