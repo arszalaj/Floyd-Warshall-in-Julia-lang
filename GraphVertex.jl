@@ -26,17 +26,14 @@ function is_neighbour(v1::ASCIIString, v2::ASCIIString, edge_list::Array{Krawedz
   for edge in edge_list
     if(edge.v1 == v1 && edge.v2 == v2)
         println("edge.v1 = $(edge.v1), v1 = $(v1), edge.v2 = $(edge.v2), v2 = $(v2)");
-      return true;
+      return edge;
     end
   end
-  return false;
+  return 0;
 end
 
 function iteracja_krawedzi2(edge_list::Array{Krawedz})
 
-  n = length(edge_list);
-  dist = eye(n);
-  prev = eye(n);
   vertex_list = [];
 
   for edge in edge_list
@@ -45,13 +42,9 @@ function iteracja_krawedzi2(edge_list::Array{Krawedz})
 
   vertex_list = unique(vertex_list);
 
-  for vertex1 in vertex_list
-    for vertex2 in vertex_list
-      if is_neighbour(vertex1, vertex2, edge_list)
-        println("$(vertex1) is neighbour of $(vertex2)");
-      end
-    end
-  end
+    n = length(vertex_list);
+    dist = eye(n);
+    prev = eye(n);
 
     for u in eachindex(vertex_list)
       for v in eachindex(vertex_list)
@@ -59,6 +52,13 @@ function iteracja_krawedzi2(edge_list::Array{Krawedz})
         prev[u, v] = -1;
       end
       dist[u, u] = 0;
+      for v in eachindex(vertex_list)
+        if (edge = is_neighbour(vertex_list[u], vertex_list[v], edge_list)) != 0
+          println("$(vertex_list[u]) is a neighbour of $(vertex_list[v])");
+          dist[u, v] = edge.weight;
+          prev[u, v] = u;
+        end
+      end
     end
 
     for t in eachindex(vertex_list)
@@ -68,15 +68,15 @@ function iteracja_krawedzi2(edge_list::Array{Krawedz})
             # println("if");
             if newLength < dist[u, v]
               dist[u, v] = newLength;
-              pred[u,v] = pred[t, v];
+              prev[u,v] = prev[t, v];
             end
           end
           dist[u, u] = 0;
       end
     end
 
-# println("dist =\n $(dist)");
-# println("prev =\n $(prev)");
+println("dist =\n $(dist)");
+println("prev =\n $(prev)");
 println("vertex_list =\n $(vertex_list)");
 
   return true;
@@ -88,7 +88,10 @@ vertex_list = ["a" "b" "c"];
 edge_list = [
 Krawedz("a","b",1)
 Krawedz("b","c",2)
-Krawedz("a","c",4)];
+Krawedz("a","c",4)
+Krawedz("d","b",3)
+Krawedz("b","e",2)
+Krawedz("c","e",1)];
  @test iteracja_krawedzi2(edge_list) == true
 
  println("Test zakończony sukcesem4");
