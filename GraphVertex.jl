@@ -22,17 +22,17 @@ function iteracja(vertex::Wierzcholek{})
   return true;
 end
 
-function is_neighbour(v1::ASCIIString, v2::ASCIIString, edge_list::Array{Krawedz})
+function is_neighbour(v1::ASCIIString, v2::ASCIIString, edge_list::Array{Any,1})
   for edge in edge_list
     if(edge.v1 == v1 && edge.v2 == v2)
-        println("edge.v1 = $(edge.v1), v1 = $(v1), edge.v2 = $(edge.v2), v2 = $(v2)");
+        # println("edge.v1 = $(edge.v1), v1 = $(v1), edge.v2 = $(edge.v2), v2 = $(v2)");
       return edge;
     end
   end
   return 0;
 end
 
-function iteracja_krawedzi2(edge_list::Array{Krawedz})
+function floyd_warshall(edge_list::Array{Any,1})
 
   vertex_list = [];
 
@@ -41,6 +41,9 @@ function iteracja_krawedzi2(edge_list::Array{Krawedz})
   end
 
   vertex_list = unique(vertex_list);
+
+  # println(edge_list);
+  #   println(vertex_list);
 
     n = length(vertex_list);
     dist = eye(n);
@@ -54,7 +57,7 @@ function iteracja_krawedzi2(edge_list::Array{Krawedz})
       dist[u, u] = 0;
       for v in eachindex(vertex_list)
         if (edge = is_neighbour(vertex_list[u], vertex_list[v], edge_list)) != 0
-          println("$(vertex_list[u]) is a neighbour of $(vertex_list[v])");
+          # println("$(vertex_list[u]) is a neighbour of $(vertex_list[v])");
           dist[u, v] = edge.weight;
           prev[u, v] = u;
         end
@@ -75,9 +78,9 @@ function iteracja_krawedzi2(edge_list::Array{Krawedz})
       end
     end
 
-println("dist =\n $(dist)");
+println("dist =\n $(dist)\n");
 println("prev =\n $(prev)");
-println("vertex_list =\n $(vertex_list)");
+# println("vertex_list =\n $(vertex_list)");
 
   return true;
 end
