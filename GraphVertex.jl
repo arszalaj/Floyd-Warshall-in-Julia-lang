@@ -32,6 +32,16 @@ function is_neighbour(v1::ASCIIString, v2::ASCIIString, edge_list::Array{Any,1})
   return 0;
 end
 
+function is_neighbour(v1::ASCIIString, v2::ASCIIString, edge_list::Array{Krawedz,1})
+  for edge in edge_list
+    if(edge.v1 == v1 && edge.v2 == v2)
+        # println("edge.v1 = $(edge.v1), v1 = $(v1), edge.v2 = $(edge.v2), v2 = $(v2)");
+      return edge;
+    end
+  end
+  return 0;
+end
+
 function floyd_warshall(edge_list::Array{Any,1})
 
   vertex_list = [];
@@ -79,8 +89,20 @@ function floyd_warshall(edge_list::Array{Any,1})
     end
 
 println("dist =\n $(dist)\n");
-println("prev =\n $(prev)");
+# println("prev =\n $(prev)");
 # println("vertex_list =\n $(vertex_list)");
 
   return true;
+end
+
+function display_edges(edge_list::Array{Krawedz,1})
+  for edge in edge_list
+  	println(" vertex1 = $(edge.v1) vertex2 = $(edge.v2) weight  = $(edge.weight)\n");
+  end
+end
+
+function display_edges(edge_list::Array{Any,1})
+  for edge in edge_list
+  	println(" vertex1 = $(edge.v1) vertex2 = $(edge.v2) weight  = $(edge.weight)\n");
+  end
 end

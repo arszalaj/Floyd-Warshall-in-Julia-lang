@@ -13,15 +13,21 @@ Krawedz("d","b",3)
 Krawedz("b","e",2)
 Krawedz("c","e",1)];
 
-@test iteracja([1,2,3]) == true
-@test Krawedz(1,Wierzcholek(1,"a"),Wierzcholek(2,"b"),1).v2.value == "b"
-krawedz1 = Krawedz(1,Wierzcholek(1,"a"),Wierzcholek(2,"b"),1);
-krawedz2 = Krawedz(2,Wierzcholek(2,"b"),Wierzcholek(1,"a"),1);
-@test iteracja_krawedzi(krawedz1, krawedz2) == true
+# @test iteracja([1,2,3]) == true
+@test Krawedz("a","b",1).v2 == "b"
+println("Edge constructor test passed\n");
 
+display_edges(edge_list);
+@test floyd_warshall(edge_list) == true
+println("Floyd Warshall function test passed");
 
- @test floyd_warshall(edge_list) == true
- @test is_neighbour(edge_list) != 0
+@test is_neighbour("a","b", edge_list) != 0
+@test is_neighbour("a","c", edge_list) != 0
+@test is_neighbour("a","d", edge_list) == 0
+@test is_neighbour("a","e", edge_list) == 0
+@test is_neighbour("b","c", edge_list) != 0
+@test is_neighbour("b","e", edge_list) != 0
+println("Checking the neighbour tests passed");
 
- println("Test zakończony sukcesem4");
- println(time());
+println("\nAll the test are passed");
+println(time());
