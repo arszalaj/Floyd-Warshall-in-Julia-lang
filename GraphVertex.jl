@@ -1,25 +1,12 @@
 #!/usr/bin/julia
 using Base.Test
 
-type Wierzcholek
-    value::ASCIIString
-    Wierzcholek(x) = new(x)
-end
-
 type Krawedz
     v1::ASCIIString
     v2::ASCIIString
     weight::Int
 
     Krawedz(x,y,z) = new(x,y,z)
-end
-
-function iteracja(vertex::Wierzcholek{})
-  for i=1:1:length(vertex)
-    println(vertex[i].id);
-  end
-
-  return true;
 end
 
 function is_neighbour(v1::ASCIIString, v2::ASCIIString, edge_list::Array{Any,1})
@@ -32,15 +19,6 @@ function is_neighbour(v1::ASCIIString, v2::ASCIIString, edge_list::Array{Any,1})
   return 0;
 end
 
-function is_neighbour(v1::ASCIIString, v2::ASCIIString, edge_list::Array{Krawedz,1})
-  for edge in edge_list
-    if(edge.v1 == v1 && edge.v2 == v2)
-        # println("edge.v1 = $(edge.v1), v1 = $(v1), edge.v2 = $(edge.v2), v2 = $(v2)");
-      return edge;
-    end
-  end
-  return 0;
-end
 
 function floyd_warshall(edge_list::Array{Any,1})
 
@@ -95,11 +73,6 @@ println("dist =\n $(dist)\n");
   return true;
 end
 
-function display_edges(edge_list::Array{Krawedz,1})
-  for edge in edge_list
-  	println(" vertex1 = $(edge.v1) vertex2 = $(edge.v2) weight  = $(edge.weight)\n");
-  end
-end
 
 function display_edges(edge_list::Array{Any,1})
   for edge in edge_list

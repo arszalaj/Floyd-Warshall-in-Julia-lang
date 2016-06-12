@@ -1,17 +1,17 @@
 #!/usr/bin/julia
 using Base.Test
-
-
+include("GraphVertex.jl")
 
 #@test iteracja(new Vector{}) == true
 vertex_list = ["a" "b" "c"];
-edge_list = [
-Krawedz("a","b",1)
-Krawedz("b","c",2)
-Krawedz("a","c",4)
-Krawedz("d","b",3)
-Krawedz("b","e",2)
-Krawedz("c","e",1)];
+edge_list = [];
+push!(edge_list, Krawedz("a","b",1));
+push!(edge_list, Krawedz("b","c",2));
+push!(edge_list, Krawedz("a","c",4));
+push!(edge_list, Krawedz("d","b",3));
+push!(edge_list, Krawedz("a","b",1));
+push!(edge_list, Krawedz("b","e",2));
+push!(edge_list, Krawedz("c","e",1));
 
 # @test iteracja([1,2,3]) == true
 @test Krawedz("a","b",1).v2 == "b"

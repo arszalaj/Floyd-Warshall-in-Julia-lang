@@ -5,9 +5,9 @@ edge_list = [];
 
 control = "y\n"
 
+println("Edges definition:")
 while(control != "n\n")
 
-	println("Edges definition:")
 	println("vertex 1 name:")
 	v1 = readline(STDIN)
 	println("vertex 2 name:")
@@ -27,6 +27,6 @@ display_edges(edge_list);
 println("\nThe matrix of the shortest paths is following:");
 floyd_warshall(edge_list);
 
-println("\n\n")
+println("\n")
 
 println("DONE!")
